@@ -18,11 +18,6 @@ export const routes: Routes = [
     canLoad: [AuthGuard],
   },
   {
-    path: ':username',
-    loadChildren: async () => (await import('@pages/profile/profile.routes')).ROUTES,
-    canLoad: [AuthGuard],
-  },
-  {
     path: 'settings',
     loadChildren: async () => (await import('@pages/settings/settings.routes')).ROUTES,
     canLoad: [AuthGuard],
