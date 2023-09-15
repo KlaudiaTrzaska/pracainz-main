@@ -8,11 +8,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'auth',
-    loadChildren: async () => (await import('@pages/auth/auth.routes')).ROUTES,
-    canLoad: [NoAuthGuard],
-  },
-  {
     path: 'home',
     loadChildren: async () => (await import('@pages/home/home.routes')).ROUTES,
     canLoad: [AuthGuard],
