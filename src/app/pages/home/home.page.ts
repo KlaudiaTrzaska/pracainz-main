@@ -110,8 +110,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   saveArrayToLocalStorage(): void {
-    // localStorage.setItem('listaZakupow', JSON.stringify(this.expandedProducts));
-    this.drawGraph();
+    localStorage.setItem('listaZakupow', JSON.stringify(this.expandedProducts));
   }
 
   loadArrayFromLocalStorage() {

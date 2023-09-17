@@ -10,12 +10,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadChildren: async () => (await import('@pages/home/home.routes')).ROUTES,
-    // canLoad: [AuthGuard],
-  },
-  {
-    path: 'settings',
-    loadChildren: async () => (await import('@pages/settings/settings.routes')).ROUTES,
-    // canLoad: [AuthGuard],
+    // canLoad: [AuthGuard], // odkomentuj dla autoryzacji i logowania
   },
   {
     path: '**',
