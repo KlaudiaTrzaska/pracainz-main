@@ -1,6 +1,3 @@
-<!-- <p>The result of myFunction is: {{ myResult }}</p>
-<br/><br/><br/><br/>
-<br/><br/><br/><br/> -->
 
 <form style=" padding: 7%">
 
@@ -8,7 +5,6 @@
     <div>
         <h2>Lista Zakupow</h2>
         <ul>
-            <!--            <li *ngFor="let item of expandedProducts; let i = index">-->
             <li *ngFor="let item of shoppingList; let i = index">
                 <button (click)="removeItem(i)" style="border: solid medium darkred;"> - X - </button>
                 {{ item.getProductCategory() }}
@@ -29,7 +25,7 @@
     </select>
     </div>
     <br/><br/>
-    <button type="button" (click)="update()" style="border: solid medium lightblue; background: lightblue"
+    <button type="button" (click)="drawGraph()" style="border: solid medium lightblue; background: lightblue"
     >Pokaz sciezke</button>
 </form>
 
@@ -91,6 +87,3 @@
     </div>
 </div>
 
-
-<br/><br/><br/><br/>
-<div id="network-container" style="width: 1000px; height: 800px; border: solid medium darkblue;"></div>
