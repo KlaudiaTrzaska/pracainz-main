@@ -1,15 +1,9 @@
-<p>The result of myFunction is: {{ myResult }}</p>
+<!-- <p>The result of myFunction is: {{ myResult }}</p>
 <br/><br/><br/><br/>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/> -->
 
-<form>
-    <label for="product">Select a Product:</label>
-    <select id="product" name="product" [(ngModel)]="selectedProduct">
-        <option *ngFor="let product of products" [value]="product">{{ product }}</option>
-    </select>
-    <button type="button" (click)="addToShoppingList()" style="border: solid medium darkblue;">
-        Dodaj </button>
-    <br/><br/><br/><br/>
+<form style=" padding: 7%">
+
 
     <div>
         <h2>Lista Zakupow</h2>
@@ -24,10 +18,17 @@
     <div>
         <button (click)="saveArrayToLocalStorage()" style="background: lawngreen;"> ZAPISZ </button>
         <button (click)="loadArrayFromLocalStorage()" style="background: greenyellow;margin-left: 10px;"> WCZYTAJ OSTATNIE </button>
-
     </div>
 
-    <br/><br/><br/><br/>
+    <div style=" padding: 10px;">
+    <!-- <label for="product">Wybierz dział </label> -->
+    <button type="button" (click)="addToShoppingList()" style=" background-color:lightblue; padding: 3px;">
+        Dodaj dział do ściezki </button>
+    <select id="product" name="product" [(ngModel)]="selectedProduct" style="border: solid medium darkcyan; background-color:lavender;">
+        <option *ngFor="let product of products" [value]="product">{{ product }}</option>
+    </select>
+    </div>
+    <br/><br/>
     <button type="button" (click)="update()" style="border: solid medium lightblue; background: lightblue"
     >Pokaz sciezke</button>
 </form>

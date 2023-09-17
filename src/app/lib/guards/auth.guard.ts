@@ -16,6 +16,6 @@ export class AuthGuard implements CanLoad {
 
     const callbackURL = segments.map((s) => s.path).join('/');
     this._router.navigate(['/auth/login'], { queryParams: { callbackURL } });
-    return false;
+    return true;
   }
 }

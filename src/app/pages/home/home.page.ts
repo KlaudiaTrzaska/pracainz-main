@@ -11,9 +11,6 @@ import ShopGraph from "../../graph/shopGraph";
 import {FormsModule} from "@angular/forms";
 import {pathForMultipleNodes} from "../../graph/pathForMultipleNodes";
 
-
-
-
 @Component({
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
@@ -29,8 +26,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   selectedProduct: string = '';
   expandedProducts: string[] = [];
-  shoppingList: WeightedNode[] = [];
-  shoppingPath: WeightedNode[] = [];
+  shoppingList: WeightedNode[] = []; // lista zakupów - którę węzły musza się znaleźc na ścieze
+  shoppingPath: WeightedNode[] = []; // ściezka do zakupów - łącznie z węzłami pośrednimi
 
   addToShoppingList(): void {
     if (this.selectedProduct != "") {
@@ -48,14 +45,14 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe((theme) => (this.currentTheme = theme));
 
     /////////////
-      this.addToShoppingListByCategory('Wejscie');
+      // this.addToShoppingListByCategory('Wejscie');
 
       this.addToShoppingListByCategory('AGD');
       this.addToShoppingListByCategory('Slodycze');
       this.addToShoppingListByCategory('Chemia');
       this.addToShoppingListByCategory('Kawa,Herbata');
   
-      this.addToShoppingListByCategory('Kasy/Wyjscie');
+      // this.addToShoppingListByCategory('Kasy/Wyjscie');
   
       this.myResult = this.myFunction();
       // this.graphService.createGraph(this.nodes, 'network-container');
@@ -72,40 +69,12 @@ export class HomePage implements OnInit, OnDestroy {
   handleThemeChange(theme: AppTheme): void {
     this._themeService.setTheme(theme);
   }
-// }
-
-// @Component({
-//   standalone: true,
-//   imports: [CommonModule, FormsModule],
-//   templateUrl: './appearance.page.html',
-//   styleUrls: ['./appearance.page.css'],
-// })
-// export class AppearancePage {
-//   myResult: string | undefined;
-//   products = ShopGraph.getAllProductCategories();
-
-//   selectedProduct: string = '';
-//   expandedProducts: string[] = [];
-//   shoppingList: WeightedNode[] = [];
-//   shoppingPath: WeightedNode[] = [];
-
-//   addToShoppingList(): void {
-//     if (this.selectedProduct != "") {
-//       console.log('Selected Product:', this.selectedProduct);
-//       this.expandedProducts.push(this.selectedProduct);
-//       this.addToShoppingListByCategory(this.selectedProduct);
-//     }
-//   }
-
-
 
   update(): void {
-    // this.expandedProducts = [...this.products];
     console.log('Expanded Products:', this.expandedProducts);
 
-    this.myResult = GeneticAlgorithmHelper.updateList(this.expandedProducts);
-    // this.shoppingPath = ShopGraph.translateShoppingListToNodeList(this.expandedProducts);
-    this.shoppingPath = pathForMultipleNodes(this.shoppingList);
+    let shoppingListWithExits = this.shoppingList;
+
     this.drawGraph();
 
   }
@@ -130,13 +99,9 @@ export class HomePage implements OnInit, OnDestroy {
 
 
   drawGraph() {
-    // let nodeDataSet = ShopGraph.nodes;
-    // this.graphService.createGraph(nodeDataSet, 'network-container');
     this.clearAllLines();
     this.colorShoppingNodes();
     this.connectCirclesWithLines();
-
-
   }
 
   removeItem(index: number): void {
@@ -175,23 +140,20 @@ export class HomePage implements OnInit, OnDestroy {
   // }
 
   connectCirclesWithLines() {
-    // const circleElements = document.querySelectorAll('.test');
     const circleElements = document.querySelectorAll('.red-circle');
     const overlay = document.querySelector('.circle-overlay') as HTMLElement;
     const image = document.querySelector('.background-image') as HTMLImageElement;
 
-    // this.drawConnectingLine(circleElements[13] as HTMLElement, circleElements[24] as HTMLElement, image, overlay);
-    // this.drawConnectingLine(circleElements[28] as HTMLElement, circleElements[14] as HTMLElement, image, overlay);
+    const shoppingPathLines = pathForMultipleNodes([...this.shoppingList]);
 
-    let nodeDataSet = ShopGraph.nodes;
 
-    this.shoppingPath.forEach(function (item) {
-      console.log(`${item.getId()} item: ` , item.getProductCategory());
-    });
+    // shoppingPathLines.forEach(function (item) {
+    //   console.log(`${item.getId()} item: ` , item.getProductCategory());
+    // });
 
-    for ( let i = 0; i < this.shoppingPath.length-1; i++){
-      const startIndex = this.shoppingPath[i].getId();
-      const endIndex = +this.shoppingPath[i+1].getId();
+    for ( let i = 0; i < shoppingPathLines.length-1; i++){
+      const startIndex = shoppingPathLines[i].getId();
+      const endIndex = +shoppingPathLines[i+1].getId();
 
       const startCircle = document.querySelector(`[id="${startIndex}"]`);
       const endCircle =document.querySelector(`[id="${endIndex}"]`);

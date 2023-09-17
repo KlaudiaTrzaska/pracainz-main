@@ -12,16 +12,16 @@ class GeneticAlgorithmHelper {
         return ShopGraph.pathToString(path);
     }
 
-    myFunction(): string {
+    // myFunction(): string {
 
-        const shoppingList = ["Zabawki", "Pieczywo", "Ciasta"];
-        // const shoppingList = ["Zabawki", "Pieczywo", "Ciasta", "Zabawki"];
-        // const shoppingList = ["Zabawki", "Pieczywo"];
-        const nodesList = ShopGraph.translateShoppingListToNodeList(shoppingList);
-        const path = pathForMultipleNodes(nodesList);
+    //     const shoppingList = ["Zabawki", "Pieczywo", "Ciasta"];
+    //     // const shoppingList = ["Zabawki", "Pieczywo", "Ciasta", "Zabawki"];
+    //     // const shoppingList = ["Zabawki", "Pieczywo"];
+    //     const nodesList = ShopGraph.translateShoppingListToNodeList(shoppingList);
+    //     const path = pathForMultipleNodes(nodesList);
 
 
-        return ShopGraph.pathToString(path);
-    }
+    //     return ShopGraph.pathToString(path);
+    // }
 }
 export default new GeneticAlgorithmHelper();
