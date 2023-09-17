@@ -1,0 +1,63 @@
+/* image-overlay.component.css */
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+}
+
+.circle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.red1-circle {
+    width: 2.5%;
+    height: 3.5%;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: aliceblue;
+    text-align: center;
+}
+
+.red-circle {
+    width: 2.5%;
+    height: 3.5%;
+    background-color: #26a88a;
+    border-radius: 50%;
+    position: absolute;
+    /*transform: translate(-50%, -50%);*/
+    color: aliceblue;
+    text-align: center;
+}
+
+
+
+.circle-overlay {
+    /* ... */
+    overflow: visible; /* Allow the lines to overflow */
+}
+
+.line {
+    position: absolute;
+    background-color: black; /* Change line color as needed */
+    /*width: 2px; !* Change line thickness as needed *!*/
+    height: 8px;
+    z-index: -1; /* Make sure the lines are below the circles */
+    transform-origin: top;
+}
+/*.line {*/
+/*    position: absolute;*/
+/*    transform-origin: var(--startX) var(--startY);*/
+/*    transform: rotate(var(--angle));*/
+/*    top: var(--startY);*/
+/*    left: var(--startX);*/
+/*}*/

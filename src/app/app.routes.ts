@@ -6,16 +6,10 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },
+  }, 
   {
     path: 'home',
     loadChildren: async () => (await import('@pages/home/home.routes')).ROUTES,
-    canLoad: [AuthGuard],
-  },
-  {
-    path: 'settings',
-    loadChildren: async () => (await import('@pages/settings/settings.routes')).ROUTES,
-    canLoad: [AuthGuard],
   },
   {
     path: '**',

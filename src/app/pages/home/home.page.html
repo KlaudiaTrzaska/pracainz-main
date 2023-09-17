@@ -1,41 +1,95 @@
-<section>
-  <h1>Home</h1>
+<p>The result of myFunction is: {{ myResult }}</p>
+<br/><br/><br/><br/>
+<br/><br/><br/><br/>
 
-  <h2 class="mb-4">Choose your theme</h2>
+<form>
+    <label for="product">Select a Product:</label>
+    <select id="product" name="product" [(ngModel)]="selectedProduct">
+        <option *ngFor="let product of products" [value]="product">{{ product }}</option>
+    </select>
+    <button type="button" (click)="addToShoppingList()" style="border: solid medium darkblue;">
+        Dodaj </button>
+    <br/><br/><br/><br/>
 
-  <div class="flex flex-wrap gap-3 mb-6">
-    <button
-      class="min-w-[150px] btn {{currentTheme === 'system' ? 'btn-primary' : 'btn-secondary'}}"
-      (click)="handleThemeChange('system')"
-    >
-      <!-- prettier-ignore -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-      System
-    </button>
-    <button
-      class="min-w-[150px] btn {{currentTheme === 'light' ? 'btn-primary' : 'btn-secondary'}}"
-      (click)="handleThemeChange('light')"
-    >
-      <!-- prettier-ignore -->
-      <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-      Light
-    </button>
-    <button
-      class="min-w-[150px] btn {{currentTheme === 'dark' ? 'btn-primary' : 'btn-secondary'}}"
-      (click)="handleThemeChange('dark')"
-    >
-      <!-- prettier-ignore -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-      Dark
-    </button>
-  </div>
+    <div>
+        <h2>Lista Zakupow</h2>
+        <ul>
+            <!--            <li *ngFor="let item of expandedProducts; let i = index">-->
+            <li *ngFor="let item of shoppingList; let i = index">
+                <button (click)="removeItem(i)" style="border: solid medium darkred;"> - X - </button>
+                {{ item.getProductCategory() }}
+            </li>
+        </ul>
+    </div>
+    <div>
+        <button (click)="saveArrayToLocalStorage()" style="background: lawngreen;"> ZAPISZ </button>
+        <button (click)="loadArrayFromLocalStorage()" style="background: greenyellow;margin-left: 10px;"> WCZYTAJ OSTATNIE </button>
 
-  <div class="mt-12">
-    <h3 class="h5">Settings</h3>
-    <ul>
-      <li>
-        <a class="text-sm link" routerLink="/settings/appearance"> appearance </a>
-      </li>
-    </ul>
-  </div>
-</section>
+    </div>
+
+    <br/><br/><br/><br/>
+    <button type="button" (click)="update()" style="border: solid medium lightblue; background: lightblue"
+    >Pokaz sciezke</button>
+</form>
+
+<div>
+    <h1>Image Overlay</h1>
+    <div class="image-container">
+        <img src="/assets/mapa.png" alt="Background Image" class="background-image" style="opacity: 0.5;">
+        <div class="circle-overlay" >
+            <div class="red-circle" style="top: 87.20%; left: 94.18%;" id="1">1</div>
+            <div class="red-circle" style="top: 73.09%; left: 91.76%;" id="2">2</div>
+            <div class="red-circle" style="top: 56.85%; left: 90.84%;" id="3">3</div>
+            <div class="red-circle" style="top: 31.38%; left: 92.56%;" id="4">4</div>
+            <div class="red-circle" style="top: 22.06%; left: 87.38%;" id="5">5</div>
+            <div class="red-circle" style="top: 4.27%; left: 96.66%;" id="6">6</div>
+            <div class="red-circle" style="top: 2.65%; left: 84.67%;" id="7">7</div>
+            <div class="red-circle" style="top: 3.16%; left: 77.64%;" id="8">8</div>
+            <div class="red-circle" style="top: 3.25%; left: 69.74%;" id="9">9</div>
+            <div class="red-circle" style="top: 3.08%; left: 59.88%;" id="10">10</div>
+            <div class="red-circle" style="top: 2.82%; left: 49.16%;" id="11">11</div>
+            <div class="red-circle test" style="top: 2.91%; left: 34.47%; background: lawngreen" id="12" >12</div>
+            <div class="red-circle" style="top: 2.74%; left: 19.42%;" id="13">13</div>
+            <div class="red-circle" style="top: 6.24%; left: 3.34%;" id="14">14</div>
+            <div class="red-circle" style="top: 30.43%; left: 5.07%;" id="15">15</div>
+            <div class="red-circle" style="top: 64.80%; left: 6.34%;" id="16">16</div>
+            <div class="red-circle" style="top: 81.56%; left: 3.23%;" id="17">17</div>
+            <div class="red-circle" style="top: 87.37%; left: 13.83%;" id="18">18</div>
+            <div class="red-circle" style="top: 87.29%; left: 25.36%;" id="19">19</div>
+            <div class="red-circle" style="top: 87.88%; left: 37.87%;" id="20">20</div>
+            <div class="red-circle" style="top: 86.00%; left: 55.91%;" id="21">21</div>
+            <div class="red-circle" style="top: 87.29%; left: 70.14%;" id="22">22</div>
+            <div class="red-circle" style="top: 86.94%; left: 80.69%;" id="23">23</div>
+            <div class="red-circle test" style="top: 68.56%; left: 80.52%; background: lawngreen" id="24">24</div>
+            <div class="red-circle" style="top: 43.94%; left: 77.93%;" id="25">25</div>
+            <div class="red-circle" style="top: 43.43%; left: 69.05%;" id="26">26</div>
+            <div class="red-circle" style="top: 43.60%; left: 60.35%;" id="27">27</div>
+            <div class="red-circle" style="top: 13.68%; left: 48.24%;" id="28">28</div>
+            <div class="red-circle" style="top: 16.76%; left: 34.12%;" id="29">29</div>
+            <div class="red-circle" style="top: 16.84%; left: 25.42%;" id="30">30</div>
+            <div class="red-circle" style="top: 16.59%; left: 15.33%;" id="31">31</div>
+            <div class="red-circle" style="top: 34.28%; left: 16.48%;" id="32">32</div>
+            <div class="red-circle" style="top: 76.17%; left: 16.71%;" id="33">33</div>
+            <div class="red-circle" style="top: 76.26%; left: 25.59%;" id="34">34</div>
+            <div class="red-circle" style="top: 76.17%; left: 34.76%;" id="35">35</div>
+            <div class="red-circle" style="top: 33.94%; left: 25.82%;" id="36">36</div>
+            <div class="red-circle" style="top: 33.85%; left: 35.45%;" id="37">37</div>
+            <div class="red-circle" style="top: 27.70%; left: 47.95%;" id="38">38</div>
+            <div class="red-circle" style="top: 61.72%; left: 45.42%;" id="39">39</div>
+            <div class="red-circle" style="top: 54.88%; left: 50.26%;" id="40">40</div>
+            <div class="red-circle" style="top: 54.97%; left: 59.65%;" id="41">41</div>
+            <div class="red-circle" style="top: 55.57%; left: 69.34%;" id="42">42</div>
+            <div class="red-circle" style="top: 55.14%; left: 83.34%;" id="43">43</div>
+            <div class="red-circle" style="top: 68.31%; left: 69.74%;" id="44">44</div>
+            <div class="red-circle" style="top: 68.99%; left: 62.19%;" id="45">45</div>
+            <div class="red-circle" style="top: 77.63%; left: 50.09%;" id="46">46</div>
+            <div class="red-circle" style="top: 96.43%; left: 36.43%;" id="47">47</div>
+
+            <!--            <div style="width: 63.79%; transform: rotate(0.764243rad); position: absolute; background-color: black; height: 2px; transform-origin: top;"></div>-->
+        </div>
+    </div>
+</div>
+
+
+<br/><br/><br/><br/>
+<div id="network-container" style="width: 1000px; height: 800px; border: solid medium darkblue;"></div>
