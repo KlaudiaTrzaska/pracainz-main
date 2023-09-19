@@ -3,34 +3,38 @@
 
 
     <div>
-        <h2>Lista Zakupow</h2>
+        <h2>Zaplanuj zakupy w sklepie</h2>
+        <div>
+            <p>Dodaj dział sklepu do listy</p>
+            <select id="product" name="product" [(ngModel)]="selectedProduct" style="border: solid medium black; background-color:lightgray; padding: 10px; font-size: 18px;">
+                <option *ngFor="let product of products" [value]="product">{{ product }}</option>
+            </select>
+            <button type="button" (click)="addToShoppingList()" style=" background-color: green; font-size: 18px; padding: 12px 30px; text-align: center; border-radius: 12px; margin-left: 2%; margin-bottom: 1%; cursor: pointer">
+                Dodaj </button>
+            
+            </div>
+
+            <h5>Twoja lista: </h5>
         <ul>
             <li *ngFor="let item of shoppingList; let i = index">
-                <button (click)="removeItem(i)" style="border: solid medium darkred;"> - X - </button>
+                <button (click)="removeItem(i)" style="background-color: red; font-size: 12px; font-weight: bold; padding: 7px 7px; text-align: center; border-radius: 15px; cursor: pointer; margin-bottom: 0.5%;"> Usuń </button>
                 {{ item.getProductCategory() }}
             </li>
         </ul>
     </div>
+    <br/><br/>
     <div>
-        <button (click)="saveArrayToLocalStorage()" style="background: lawngreen;"> ZAPISZ </button>
-        <button (click)="loadArrayFromLocalStorage()" style="background: greenyellow;margin-left: 10px;"> WCZYTAJ OSTATNIE </button>
+        <button (click)="saveArrayToLocalStorage()" style="background: orange; font-size: 14px; padding: 10px 20px; text-align: center; border-radius: 12px; margin-left: 2%; cursor: pointer"> Zachowaj liste </button>
+        <button (click)="loadArrayFromLocalStorage()" style="background: orangered;font-size: 14px; padding: 10px 20px; text-align: center; border-radius: 12px; margin-left: 2%; cursor: pointer"> Wczytaj zapisaną liste </button>
     </div>
 
-    <div style=" padding: 10px;">
-    <!-- <label for="product">Wybierz dział </label> -->
-    <button type="button" (click)="addToShoppingList()" style=" background-color:lightblue; padding: 3px;">
-        Dodaj dział do ściezki </button>
-    <select id="product" name="product" [(ngModel)]="selectedProduct" style="border: solid medium darkcyan; background-color:lavender;">
-        <option *ngFor="let product of products" [value]="product">{{ product }}</option>
-    </select>
-    </div>
     <br/><br/>
-    <button type="button" (click)="drawGraph()" style="border: solid medium lightblue; background: lightblue"
-    >Pokaz sciezke</button>
+    <button type="button" (click)="drawGraph()" style="background: lightcoral; font-size: 14px; padding: 10px 20px; text-align: center; border-radius: 12px; margin-left: 2%; cursor: pointer"
+    >Wyświetl ściezke na mapie >></button>
 </form>
 
 <div>
-    <h1>Image Overlay</h1>
+    <h1> Mapa Sklepu </h1>
     <div class="image-container">
         <img src="/assets/mapa.png" alt="Background Image" class="background-image" style="opacity: 0.5;">
         <div class="circle-overlay" >
