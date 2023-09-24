@@ -17,29 +17,48 @@
     height: 100%;
 }
 
-.red1-circle {
-    width: 2.5%;
-    height: 3.5%;
-    background-color: red;
-    border-radius: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    color: aliceblue;
-    text-align: center;
-}
-
-.red-circle {
+.graph-circle {
     width: 2.5%;
     height: 3.5%;
     background-color: black;
     border-radius: 50%;
     position: absolute;
     /*transform: translate(-50%, -50%);*/
-    color: rgb(107, 107, 107);
+    color: rgb(222, 222, 222);
     text-align: center;
     text-size-adjust: 50%;
 }
 
+.usun-button {
+    background-color: red;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 7px 7px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-bottom: 0.5%;
+    color: white
+}
+
+.save-button {
+    background: orange;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer
+}
+
+.load-button {
+    background: orangered;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-left: 2%;
+    cursor: pointer
+}
 
 
 .circle-overlay {
