@@ -10,9 +10,9 @@
         nodes.unshift(ShopGraph.start); // add starting point (entrance)
         nodes.push(ShopGraph.finish); // add end point (exit)
 
-        for(let i = 0; i < nodes.length - 1; i++) {
-            path.pop();
-            path = path.concat(shortestPathBruteForce(nodes[i], nodes[i+1]));
+        for (let i = 0; i < nodes.length - 1; i++) {
+            const partialPath = shortestPathBruteForce(nodes[i], nodes[i + 1]);
+            path = path.concat(partialPath);
         }
         return path;
     }     

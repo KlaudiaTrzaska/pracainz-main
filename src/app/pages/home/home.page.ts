@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppTheme, ThemeService } from '@lib/services/theme';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
-import {WeightedNode} from "../../graph/weidghednode";
+import { WeightedNode } from "../../graph/weidghednode";
 import ShopGraph from "../../graph/shopGraph";
-import {FormsModule} from "@angular/forms";
-import {pathForMultipleNodes} from "../../graph/pathForMultipleNodes";
+import { FormsModule } from "@angular/forms";
+import { findPath } from "../../graph/findPath";
 
 @Component({
   standalone: true,
@@ -26,7 +26,7 @@ export class HomePage implements OnInit, OnDestroy {
   shoppingPath: WeightedNode[] = []; // ściezka do zakupów - łącznie z węzłami pośrednimi
 
 
-  constructor(private _themeService: ThemeService) {}
+  constructor(private _themeService: ThemeService) { }
 
   ngOnInit(): void {
     this.loadArrayFromLocalStorage();
@@ -42,9 +42,18 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   drawGraph() {
+    // start counting
+    const start = new Date().getTime();
+
+    // function
     this.clearAllLines();
     this.connectCirclesWithLines();
     this.colorShoppingNodes();
+
+    // finish counting and results
+    const end = new Date().getTime();
+    const time = end - start;
+    console.log('Execution time: ' + time + ' ms');
   }
 
   removeItem(index: number): void {
@@ -58,8 +67,7 @@ export class HomePage implements OnInit, OnDestroy {
   loadArrayFromLocalStorage() {
     const json = localStorage.getItem('listaZakupow');
     if (json) {
-      for(let category of JSON.parse(json)){
-        console.log('category   ', category);
+      for (let category of JSON.parse(json)) {
         this.addToShoppingListByCategory(category);
       }
     }
@@ -67,14 +75,13 @@ export class HomePage implements OnInit, OnDestroy {
 
   addToShoppingListByCategory(category: string) {
     const node = ShopGraph.getNodeByCategory(category)!;
-    if (!this.shoppingList.includes(node) ){
+    if (!this.shoppingList.includes(node)) {
       this.shoppingList.push(node);
     }
   }
 
   addToShoppingList(): void {
     if (this.selectedProduct != "") {
-      console.log('Selected Product:', this.selectedProduct);
       this.addToShoppingListByCategory(this.selectedProduct);
     }
   }
@@ -84,20 +91,17 @@ export class HomePage implements OnInit, OnDestroy {
     const overlay = document.querySelector('.circle-overlay') as HTMLElement;
     const image = document.querySelector('.background-image') as HTMLImageElement;
 
-    const shoppingPathLines = pathForMultipleNodes(this.shoppingList);
+    // const shoppingPathLines = pathForMultipleNodes(this.shoppingList);
+    const shoppingPathLines = findPath(this.shoppingList);
 
 
-    for ( let i = 0; i < shoppingPathLines.length-1; i++){
+
+    for (let i = 0; i < shoppingPathLines.length - 1; i++) {
       const startIndex = shoppingPathLines[i].getId();
-      const endIndex = +shoppingPathLines[i+1].getId();
+      const endIndex = +shoppingPathLines[i + 1].getId();
 
       const startCircle = document.querySelector(`[id="${startIndex}"]`);
-      const endCircle =document.querySelector(`[id="${endIndex}"]`);
-
-
-      console.log(`drawing for ${startIndex} -> ${endIndex}`);
-      console.log(`HTML: ${startCircle} -> ${endCircle}`);
-
+      const endCircle = document.querySelector(`[id="${endIndex}"]`);
 
       this.drawConnectingLine(startCircle as HTMLElement, endCircle as HTMLElement, image, overlay);
 
@@ -105,14 +109,14 @@ export class HomePage implements OnInit, OnDestroy {
 
   }
 
-  drawConnectingLine (startPoint: HTMLElement, endPoint: HTMLElement, canvas: HTMLElement, parentOverlay: HTMLElement ) {
+  drawConnectingLine(startPoint: HTMLElement, endPoint: HTMLElement, canvas: HTMLElement, parentOverlay: HTMLElement) {
     const dx = endPoint.offsetLeft - startPoint.offsetLeft;
     const dy = endPoint.offsetTop - startPoint.offsetTop;
     const distance = Math.sqrt(dx * dx + dy * dy);
     const angle = Math.atan2(dy, dx);
 
-    const startXPercentage = ( (startPoint.offsetLeft + startPoint.offsetWidth/2) / canvas.offsetWidth) * 100;
-    const startYPercentage = ( (startPoint.offsetTop + startPoint.offsetHeight/2 ) / canvas.offsetHeight) * 100;
+    const startXPercentage = ((startPoint.offsetLeft + startPoint.offsetWidth / 2) / canvas.offsetWidth) * 100;
+    const startYPercentage = ((startPoint.offsetTop + startPoint.offsetHeight / 2) / canvas.offsetHeight) * 100;
 
     const line = document.createElement('div');
     line.style.width = `${distance}px`;
@@ -135,14 +139,14 @@ export class HomePage implements OnInit, OnDestroy {
       lineElement.remove();
     });
 
-    const circleElements = document.querySelectorAll<HTMLElement>('.red-circle') ;
+    const circleElements = document.querySelectorAll<HTMLElement>('.red-circle');
     circleElements.forEach(function (circleElement) {
       circleElement.style.backgroundColor = 'black'; // Change line color as needed
     });
   }
 
   colorShoppingNodes() {
-    this.shoppingList.forEach( function (shoppingElement) {
+    this.shoppingList.forEach(function (shoppingElement) {
       const shoppingCircle = document.querySelector<HTMLElement>(`[id="${shoppingElement.getId()}"]`)!;
       shoppingCircle.style.backgroundColor = 'red';
     });
