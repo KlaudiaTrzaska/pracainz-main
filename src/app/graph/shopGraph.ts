@@ -24,7 +24,6 @@ class ShopGraph {
         this.nodes[15].setProductCategory("Ciasta");
         this.nodes[16].setProductCategory("Pieczywo");
         this.nodes[24].setProductCategory("Pokarm dla zwierzat");
-        this.nodes[25].setProductCategory("rtv");
         this.nodes[25].setProductCategory("Chemia");
         this.nodes[26].setProductCategory("Kosmetyki");
         this.nodes[27].setProductCategory("Ubrania damskie");
