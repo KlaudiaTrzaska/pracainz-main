@@ -91,10 +91,7 @@ export class HomePage implements OnInit, OnDestroy {
     const overlay = document.querySelector('.circle-overlay') as HTMLElement;
     const image = document.querySelector('.background-image') as HTMLImageElement;
 
-    // const shoppingPathLines = pathForMultipleNodes(this.shoppingList);
     const shoppingPathLines = findPath(this.shoppingList);
-
-
 
     for (let i = 0; i < shoppingPathLines.length - 1; i++) {
       const startIndex = shoppingPathLines[i].getId();
@@ -104,9 +101,7 @@ export class HomePage implements OnInit, OnDestroy {
       const endCircle = document.querySelector(`[id="${endIndex}"]`);
 
       this.drawConnectingLine(startCircle as HTMLElement, endCircle as HTMLElement, image, overlay);
-
     }
-
   }
 
   drawConnectingLine(startPoint: HTMLElement, endPoint: HTMLElement, canvas: HTMLElement, parentOverlay: HTMLElement) {
@@ -151,8 +146,4 @@ export class HomePage implements OnInit, OnDestroy {
       shoppingCircle.style.backgroundColor = 'red';
     });
   }
-
 }
-
-
-
